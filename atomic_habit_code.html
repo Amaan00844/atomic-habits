@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atomic Habits — Book Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0f0e0b;
+    --cream: #f7f3ec;
+    --amber: #e8993a;
+    --rust: #c0472b;
+    --sage: #4a7c59;
+    --slate: #3a4a5c;
+    --light: #fdf9f3;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--ink);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 110%, #e8993a22 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 10%, #c0472b18 0%, transparent 60%);
+  }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 12vw, 8rem);
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--cream);
+    animation: fadeUp 0.8s 0.15s ease both;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-title span {
+    display: block;
+    color: var(--amber);
+    font-style: italic;
+  }
+
+  .hero-author {
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    color: #aaa;
+    letter-spacing: 0.1em;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-tagline {
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    color: #ccc;
+    max-width: 500px;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #666;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: fadeUp 1s 1s ease both;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, transparent, var(--amber));
+    animation: extendLine 1.5s 1.5s ease infinite;
+  }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+
+  .container { max-width: 860px; margin: 0 auto; }
+
+  /* SUMMARY BAND */
+  .summary-band {
+    background: var(--light);
+    border-top: 3px solid var(--amber);
+    border-bottom: 3px solid var(--amber);
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+
+  .lead-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+    max-width: 680px;
+  }
+
+  /* CORE IDEA */
+  .core-idea {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .core-idea .section-title { color: var(--cream); }
+
+  .quote-block {
+    border-left: 4px solid var(--amber);
+    padding: 1.5rem 2rem;
+    margin: 2.5rem 0;
+    background: rgba(255,255,255,0.04);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    color: #f0ead8;
+    line-height: 1.6;
+  }
+
+  /* KEY POINTS GRID */
+  .key-points { background: var(--cream); }
+
+  .points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .point-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.8rem;
+    border-top: 4px solid transparent;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    position: relative;
+  }
+
+  .point-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+
+  .point-card:nth-child(1) { border-top-color: var(--amber); }
+  .point-card:nth-child(2) { border-top-color: var(--rust); }
+  .point-card:nth-child(3) { border-top-color: var(--sage); }
+  .point-card:nth-child(4) { border-top-color: var(--slate); }
+  .point-card:nth-child(5) { border-top-color: #9b59b6; }
+  .point-card:nth-child(6) { border-top-color: #e67e22; }
+  .point-card:nth-child(7) { border-top-color: #1abc9c; }
+  .point-card:nth-child(8) { border-top-color: #e74c3c; }
+
+  .point-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    opacity: 0.08;
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    line-height: 1;
+  }
+
+  .point-icon { font-size: 1.6rem; margin-bottom: 0.8rem; }
+
+  .point-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.6rem;
+    color: var(--ink);
+  }
+
+  .point-desc {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.65;
+  }
+
+  /* FOUR LAWS */
+  .four-laws { background: #1a1510; color: var(--cream); }
+  .four-laws .section-title { color: var(--cream); }
+
+  .laws-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1px;
+    margin-top: 2.5rem;
+    background: #333;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .law-cell {
+    background: #1a1510;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .law-cell:hover { background: #2a2018; }
+
+  .law-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--amber);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .law-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: #ccc;
+    margin-bottom: 0.6rem;
+  }
+
+  .law-verb {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--amber);
+    font-weight: 500;
+  }
+
+  .law-desc {
+    font-size: 0.85rem;
+    color: #888;
+    margin-top: 0.8rem;
+    line-height: 1.55;
+  }
+
+  /* CONCLUSION */
+  .conclusion { background: var(--rust); color: white; }
+  .conclusion .section-title { color: white; }
+  .conclusion .section-label { color: rgba(255,255,255,0.6); }
+  .conclusion .lead-text { color: rgba(255,255,255,0.88); }
+
+  .final-quote {
+    margin-top: 2.5rem;
+    padding: 2rem;
+    background: rgba(0,0,0,0.15);
+    border-radius: 12px;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.7;
+    text-align: center;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #555;
+    text-align: center;
+    padding: 2rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes extendLine {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+    50%       { opacity: 1;   transform: scaleY(1);   transform-origin: top; }
+  }
+
+  /* DIVIDER */
+  .ornament {
+    text-align: center;
+    color: var(--amber);
+    font-size: 1.5rem;
+    margin: 2rem 0;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <p class="hero-eyebrow">Book Summary</p>
+    <h1 class="hero-title">Atomic<span>Habits</span></h1>
+    <p class="hero-author">James Clear · 2018</p>
+    <p class="hero-tagline">An Easy & Proven Way to Build Good Habits & Break Bad Ones</p>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<!-- OVERALL SUMMARY -->
+<section class="summary-band">
+  <div class="container">
+    <p class="section-label">Overall Summary</p>
+    <h2 class="section-title">Small Changes, Remarkable Results</h2>
+    <p class="lead-text">
+      <em>Atomic Habits</em> by James Clear argues that meaningful, lasting change doesn't come from dramatic overhauls — it comes from tiny, 1% improvements compounded over time. The book provides a practical, science-backed framework for forming good habits, breaking bad ones, and mastering the daily routines that shape who you become.
+    </p>
+    <div class="ornament">◆</div>
+    <p class="lead-text">
+      Clear's central thesis is that we don't rise to the level of our goals; we fall to the level of our systems. Habits are the atoms of those systems — small, seemingly insignificant actions that, when stacked together, create extraordinary outcomes. The book blends behavioral psychology, neuroscience, and real-world stories into an actionable guide.
+    </p>
+  </div>
+</section>
+
+<!-- CORE IDEA -->
+<section class="core-idea">
+  <div class="container">
+    <p class="section-label">Core Idea</p>
+    <h2 class="section-title">The Power of 1%</h2>
+    <p class="lead-text" style="color:#bbb;">
+      If you get just 1% better every day for a year, you'll end up 37 times better than when you started. Conversely, getting 1% worse each day takes you nearly to zero. Outcomes are a lagging measure of habits — your net worth is your financial habits, your fitness is your exercise habits, your knowledge is your learning habits.
+    </p>
+    <div class="quote-block">
+      <p>"You do not rise to the level of your goals. You fall to the level of your systems."</p>
+    </div>
+    <p class="lead-text" style="color:#bbb;">
+      Habits work through a neurological feedback loop: <strong style="color:var(--amber)">Cue → Craving → Response → Reward</strong>. Every habit, good or bad, follows this loop. Understanding it is the master key to changing behavior.
+    </p>
+  </div>
+</section>
+
+<!-- KEY POINTS -->
+<section class="key-points">
+  <div class="container">
+    <p class="section-label">Key Points</p>
+    <h2 class="section-title">8 Powerful Lessons</h2>
+
+    <div class="points-grid">
+
+      <div class="point-card">
+        <span class="point-number">1</span>
+        <div class="point-icon">⚡</div>
+        <p class="point-title">Habits are compound interest of self-improvement</p>
+        <p class="point-desc">Small habits don't seem to matter in the moment, but their cumulative effect over months and years is enormous. Be patient — results come after you cross a "plateau of latent potential."</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">2</span>
+        <div class="point-icon">🪪</div>
+        <p class="point-title">Identity-based habits beat outcome-based goals</p>
+        <p class="point-desc">Don't aim to run a marathon — aim to become a runner. Every action is a vote for the type of person you wish to become. Change the identity first; behaviors follow naturally.</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">3</span>
+        <div class="point-icon">🔁</div>
+        <p class="point-title">The Habit Loop: Cue → Craving → Response → Reward</p>
+        <p class="point-desc">All habits follow this four-stage loop. To build a good habit: make the cue obvious, the craving attractive, the response easy, and the reward satisfying.</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">4</span>
+        <div class="point-icon">📍</div>
+        <p class="point-title">Environment design beats motivation</p>
+        <p class="point-desc">Willpower is unreliable. Redesign your environment so good habits are the path of least resistance. Want to read more? Put the book on your pillow. Want to eat healthier? Put fruit on the counter.</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">5</span>
+        <div class="point-icon">🔗</div>
+        <p class="point-title">Habit stacking accelerates progress</p>
+        <p class="point-desc">Link a new habit to an existing one: "After I pour my morning coffee, I will meditate for one minute." This leverages existing neural pathways to anchor new behaviors.</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">6</span>
+        <div class="point-icon">🎯</div>
+        <p class="point-title">The Two-Minute Rule reduces procrastination</p>
+        <p class="point-desc">Scale any habit down to under two minutes to start. "Read 30 minutes" becomes "read one page." The goal is to show up. Once you start, momentum takes over.</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">7</span>
+        <div class="point-icon">📊</div>
+        <p class="point-title">Tracking and accountability make habits stick</p>
+        <p class="point-desc">Habit tracking creates visual evidence of progress, which is inherently motivating. "Never miss twice" is the golden rule — missing once is an accident; missing twice is starting a new (bad) habit.</p>
+      </div>
+
+      <div class="point-card">
+        <span class="point-number">8</span>
+        <div class="point-icon">🧬</div>
+        <p class="point-title">Genes and talent inform, but don't determine success</p>
+        <p class="point-desc">Align habits with your natural strengths. The secret to maximizing success is choosing the right field of competition. Habits are easier when they feel natural rather than forced.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOUR LAWS -->
+<section class="four-laws">
+  <div class="container">
+    <p class="section-label">The Framework</p>
+    <h2 class="section-title">The Four Laws of Behavior Change</h2>
+    <p style="color:#999; max-width:600px;">James Clear's complete system for building any good habit (and its inversion to break bad ones).</p>
+
+    <div class="laws-row">
+      <div class="law-cell">
+        <div class="law-num">1</div>
+        <div class="law-name">Make it Obvious</div>
+        <div class="law-verb">Cue</div>
+        <div class="law-desc">Use implementation intentions, habit stacking, and environment redesign to surface the cue clearly.</div>
+      </div>
+      <div class="law-cell">
+        <div class="law-num">2</div>
+        <div class="law-name">Make it Attractive</div>
+        <div class="law-verb">Craving</div>
+        <div class="law-desc">Temptation bundle: pair a habit you need with something you enjoy. Join a culture where the habit is the norm.</div>
+      </div>
+      <div class="law-cell">
+        <div class="law-num">3</div>
+        <div class="law-name">Make it Easy</div>
+        <div class="law-verb">Response</div>
+        <div class="law-desc">Reduce friction. Use the Two-Minute Rule. Prime the environment. Automate with technology where possible.</div>
+      </div>
+      <div class="law-cell">
+        <div class="law-num">4</div>
+        <div class="law-name">Make it Satisfying</div>
+        <div class="law-verb">Reward</div>
+        <div class="law-desc">Immediate reward reinforces repetition. Track habits visually. Use accountability partners and habit contracts.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCLUSION -->
+<section class="conclusion">
+  <div class="container">
+    <p class="section-label">Conclusion</p>
+    <h2 class="section-title">The Bottom Line</h2>
+    <p class="lead-text">
+      <em>Atomic Habits</em> is ultimately a book about identity and systems, not goals and willpower. The most practical takeaway is that you don't need to be perfect — you need to be consistent. Every time you perform a habit, you cast a vote for the person you want to become.
+    </p>
+    <p class="lead-text" style="margin-top:1.2rem;">
+      The book's brilliance lies in making behavior change feel achievable. You don't need to revolutionize your life overnight. Start absurdly small, optimize your environment, track your progress, and let compounding do the rest. Over time, your habits quite literally reshape your identity.
+    </p>
+    <p class="lead-text" style="margin-top:1.2rem;">
+      Whether you want to study more, exercise regularly, build a business, or break a destructive pattern — the four laws of behavior change provide a universal toolkit. Master the fundamentals, and the extraordinary becomes ordinary.
+    </p>
+    <div class="final-quote">
+      "Success is the product of daily habits — not once-in-a-lifetime transformations."<br>
+      <span style="font-size:0.85rem; opacity:0.7; font-style:normal;">— James Clear</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Summary of <em>Atomic Habits</em> by James Clear (2018) · Crafted by Amaan Chauhan</p>
+</footer>
+
+</body>
+</html>
